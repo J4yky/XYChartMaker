@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.chartmaker.HelloController">
+   <children>
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="964.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem id="menuOpen" mnemonicParsing="false" onAction="#openFile" text="Open" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <LineChart fx:id="lineChart" layoutX="192.0" layoutY="27.0" prefHeight="563.0" prefWidth="772.0">
+        <xAxis>
+            <NumberAxis label="X Axis"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis label="Y Axis"/>
+        </yAxis>
+      </LineChart>
+      <VBox layoutY="27.0" prefHeight="563.0" prefWidth="187.0">
+         <children>
+            <ListView id="listView" fx:id="listView" focusTraversable="false" prefHeight="572.0" prefWidth="187.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
