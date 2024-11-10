@@ -18,19 +18,24 @@
                   <MenuItem id="menuOpen" mnemonicParsing="false" onAction="#openFile" text="Open" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#calculateFWHMButton" text="FWHM" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
-      <LineChart fx:id="lineChart" layoutX="287.0" layoutY="27.0" prefHeight="752.0" prefWidth="931.0">
+      <LineChart fx:id="lineChart" layoutX="285.0" layoutY="27.0" prefHeight="752.0" prefWidth="933.0">
         <xAxis>
-            <NumberAxis label="X Axis" />
+            <NumberAxis label="X" />
         </xAxis>
         <yAxis>
-          <NumberAxis side="LEFT" />
+          <NumberAxis label="Y" side="LEFT" />
         </yAxis>
       </LineChart>
-      <VBox layoutY="27.0" prefHeight="752.0" prefWidth="288.0">
+      <VBox layoutY="27.0" prefHeight="752.0" prefWidth="276.0">
          <children>
-            <ListView id="listView" fx:id="listView" focusTraversable="false" prefHeight="756.0" prefWidth="187.0" />
+            <ListView id="listView" fx:id="listView" focusTraversable="false" prefHeight="752.0" prefWidth="277.0" />
          </children>
       </VBox>
    </children>

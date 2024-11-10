@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -113,7 +114,7 @@ public class HelloController implements Initializable {
 
         Node maxYNode = maxYData.getNode();
         if (maxYNode != null) {
-            maxYNode.setOnMouseEntered(this::showTooltip);
+            maxYNode.setOnMouseEntered(event -> ShowToolTIp.showTooltip(event, maxYTooltip));
         }
 
         NumberAxis xAxis = (NumberAxis) lineChart.getXAxis();
@@ -122,13 +123,20 @@ public class HelloController implements Initializable {
         xAxis.setUpperBound(maxX);
         xAxis.setTickUnit((maxX - minX) / 10);
     }
+    @FXML
+    void calculateFWHMButton() {
+        if(lineChart.getData().isEmpty()){
+            showErrorDialog("Line Chart with no data.");
+        } else {
+            LRPointsSeries fwhmPoints = CalculateAdditionalPoints.calculateFWHMFunction(lineChart.getData().getFirst());
 
-    private void showTooltip(MouseEvent event) {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(200), e -> {
-            Tooltip.install((Node) event.getSource(), maxYTooltip);
-            maxYTooltip.show((Node) event.getSource(), event.getScreenX(), event.getScreenY());
-        }));
-        timeline.setCycleCount(1);
-        timeline.play();
+            lineChart.getData().add(fwhmPoints.getLeftPoints());
+            lineChart.getData().add(fwhmPoints.getRightPoints());
+        }
+    }
+    private void showErrorDialog(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
