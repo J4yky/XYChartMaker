@@ -1,7 +1,5 @@
 package org.example.chartmaker;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -13,8 +11,6 @@ import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.ListView;
-import javafx.util.Duration;
-import javafx.scene.input.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -132,6 +128,7 @@ public class HelloController implements Initializable {
 
             lineChart.getData().add(fwhmPoints.getLeftPoints());
             lineChart.getData().add(fwhmPoints.getRightPoints());
+            lineChart.getData().add(fwhmPoints.getFWHM());
         }
     }
     private void showErrorDialog(String message){

@@ -20,10 +20,10 @@ public class CalculateAdditionalPoints {
 
         double halfMaxY = maxY / 2.0;
 
-        double leftXT;
-        double leftXB;
-        double leftYT;
-        double leftYB;
+        double leftXT = 0;
+        double leftXB = 0;
+        double leftYT = 0;
+        double leftYB = 0;
         for (int i = maxIndex; i >= 0; i--) {
             double y = series.getData().get(i).getYValue().doubleValue();
             if (y == halfMaxY) {
@@ -48,10 +48,10 @@ public class CalculateAdditionalPoints {
             }
         }
 
-        double rightXT;
-        double rightXB;
-        double rightYT;
-        double rightYB ;
+        double rightXT = 0;
+        double rightXB = 0;
+        double rightYT = 0;
+        double rightYB = 0;
         for (int i = maxIndex; i < series.getData().size(); i++) {
             double y = series.getData().get(i).getYValue().doubleValue();
             if (y == halfMaxY) {
@@ -75,6 +75,24 @@ public class CalculateAdditionalPoints {
                 break;
             }
         }
-        return new LRPointsSeries(additionalPointsLeft, additionalPointsRight);
+
+        double aL = (leftYT-leftYB)/(leftXT-leftXB);
+        double aR = (rightYT-rightYB)/(rightXT-rightXB);
+        double bL = leftYT - (aL * leftXT);
+        double bR = rightYT -(aR * rightXT);
+
+        double halfY_XL = (halfMaxY - bL)/aL;
+        double halfY_XR = (halfMaxY - bR)/aR;
+
+        XYChart.Data<Number, Number> halfXYL = new XYChart.Data<>(halfY_XL, halfMaxY);
+        XYChart.Data<Number, Number> halfXYR = new XYChart.Data<>(halfY_XR, halfMaxY);
+
+        XYChart.Series<Number, Number> halfXYSeries = new XYChart.Series<>();
+        halfXYSeries.getData().add(halfXYL);
+        halfXYSeries.getData().add(halfXYR);
+
+        double deltaX = halfY_XR-halfY_XL;
+
+        return new LRPointsSeries(additionalPointsLeft, additionalPointsRight, halfXYSeries, deltaX);
     }
 }
